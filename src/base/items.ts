@@ -40,12 +40,12 @@ export class ItemsHandler<T extends Item> implements IItems<T> {
 
 		const { data, meta } = await this.transport.get<OneItem<T, Q>[]>(`${this.endpoint}`, {
 			params: {
+				...query,
 				filter: {
 					[primaryKeyField!.field]: { _in: ids },
 					...query?.filter,
 				},
 				sort: query?.sort || primaryKeyField!.field,
-				...query,
 			},
 			...options?.requestOptions,
 		});
